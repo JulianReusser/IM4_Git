@@ -37,7 +37,7 @@ Adafruit_NeoPixel ring(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 float smoothedSPL = 0;
 
 const float filterFactor = 0.5;
-const float DB_OFFSET = 115.0;
+const float DB_OFFSET = 120.0;
 
 // Datenbank Timer
 unsigned long lastTime = 0;
