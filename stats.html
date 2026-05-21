@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+  
+  <title>Statistik</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <script src="js/auth-check.js"></script>
+  <div class="dashboard">
+
+    <!-- Header -->
+    <header class="topbar">
+      <h1>Statistik</h1>
+    </header>
+
+    <!-- Durchschnitt -->
+    <section class="card average-card">
+      <p class="small-title">Durchschnittlicher Lärm (Woche)</p>
+
+      <div class="big-stat">42 dB</div>
+
+      <p class="trend down">↓ 3 dB vs. letzte Woche</p>
+    </section>
+
+    <!-- removed static Wochenübersicht; dynamic charts below are used -->
+
+    <!-- Tagesverlauf -->
+    <section class="card">
+      <h2>Tagesverlauf (Heute)</h2>
+
+        <div class="chart-canvas">
+          <canvas id="dayHourChart" width="600" height="200" aria-label="Tagesverlauf Diagramm" role="img"></canvas>
+        </div>
+
+        <div class="time-labels">
+          <span>0:00</span>
+          <span>4:00</span>
+          <span>8:00</span>
+          <span>12:00</span>
+          <span>16:00</span>
+          <span>20:00</span>
+        </div>
+    </section>
+
+      <!-- Wochen-Chart -->
+      <section class="card">
+        <h2>Wochenübersicht (Mo–Fr)</h2>
+        <div class="chart-canvas">
+          <canvas id="weekBarChart" width="600" height="200" aria-label="Wochenübersicht" role="img"></canvas>
+        </div>
+      </section>
+
+    <!-- Lauteste / Leiseste -->
+    <div class="double-grid">
+
+      <section class="mini-card loud-card">
+        <p>Lauteste Zeit</p>
+        <h3 id="loudHourText">12:00 - 13:00</h3>
+        <span id="loudDesc">Ø 65 dB (Mittagspause)</span>
+      </section>
+
+      <section class="mini-card quiet-card">
+        <p>Leiseste Zeit</p>
+        <h3 id="quietHourText">13:00 - 14:00</h3>
+        <span id="quietDesc">Ø 38 dB (Ruhezeit)</span>
+      </section>
+
+    </div>
+
+    <!-- Wochenperformance -->
+    <section class="card">
+      <h2>Wochenperformance</h2>
+
+      <div class="performance-list">
+
+        <div class="performance-item">
+          <div class="performance-top">
+            <strong>Mo</strong>
+          </div>
+
+          <div class="progress-bg">
+            <div class="progress-fill" style="width: 2%;"></div>
+          </div>
+        </div>
+
+        <div class="performance-item">
+          <div class="performance-top">
+            <strong>Di</strong>
+          </div>
+
+          <div class="progress-bg">
+            <div class="progress-fill yellow" style="width: 2%;"></div>
+          </div>
+        </div>
+
+        <div class="performance-item">
+          <div class="performance-top">
+            <strong>Mi</strong>
+          </div>
+
+          <div class="progress-bg">
+            <div class="progress-fill" style="width: 2%;"></div>
+          </div>
+        </div>
+
+        <div class="performance-item">
+          <div class="performance-top">
+            <strong>Do</strong>
+          </div>
+
+          <div class="progress-bg">
+            <div class="progress-fill yellow" style="width: 2%;"></div>
+          </div>
+        </div>
+
+        <div class="performance-item">
+          <div class="performance-top">
+            <strong>Fr</strong>
+          </div>
+
+          <div class="progress-bg">
+            <div class="progress-fill" style="width: 2%;"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Zusammenfassung -->
+    <section class="card summary-card">
+      <h2>Zusammenfassung</h2>
+
+      <ul>
+        <li>Durchschnittlicher Lärm heute <strong id="summaryAvgToday">42 dB</strong></li>
+  <li>Leiseste Stunde heute <strong id="summaryQuietHour"><span class="time">13:00 - 14:00</span> <span class="db">(38 dB)</span></strong></li>
+  <li>Lauteste Stunde heute <strong id="summaryLoudHour"><span class="time">12:00 - 13:00</span> <span class="db">(65 dB)</span></strong></li>
+        <li>Leisester Wochentag <strong id="summaryQuietWeekday">Di (38 dB)</strong></li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+      <a href="index.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 21V12h14v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <a class="active" href="stats.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 3v18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="7" y="12" width="3" height="6" rx="0.5" fill="currentColor"/>
+          <rect x="12" y="8" width="3" height="10" rx="0.5" fill="currentColor"/>
+          <rect x="17" y="4" width="3" height="14" rx="0.5" fill="currentColor"/>
+        </svg>
+        <span>Statistik</span>
+      </a>
+
+      <a href="tips.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 2a6 6 0 00-4 10c0 2.5 2 3 2 5h4c0-2 2-2.5 2-5a6 6 0 00-4-10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Tipps</span>
+      </a>
+
+      <a href="profile.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Profil</span>
+      </a>
+    </nav>
+
+  </div>
+  
+  <script src="js/nav.js"></script>
+  <script src="js/stats.js"></script>
+
+</body>
+</html>

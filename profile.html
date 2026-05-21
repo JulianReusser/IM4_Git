@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+  
+  <title>Profil</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <script src="js/auth-check.js"></script>
+  <div class="dashboard">
+
+    <!-- Header -->
+    <header class="topbar">
+      <h1> Profil</h1>
+    </header>
+
+    <!-- Profil -->
+    <section class="profile-page">
+
+      <!-- Bild -->
+      <div class="profile-big-avatar">
+        
+      </div>
+
+      <!-- Titel -->
+      <h2 class="profile-name">
+        Mein Konto
+      </h2>
+
+      <!-- Email -->
+      <div class="profile-info-card">
+        <span class="profile-label">E-Mail</span>
+
+        <div id="userInfo" class="profile-value">
+          Lade Benutzerdaten...
+        </div>
+      </div>
+
+      <!-- Passwort -->
+      <div class="profile-info-card">
+        <span class="profile-label">Passwort</span>
+
+        <div class="profile-value" id="passwordDisplay">
+          ••••••••••••
+        </div>
+
+        
+
+      <!-- Logout -->
+      <button id="logoutBtn" class="logout-btn">
+        Logout
+      </button>
+
+    </section>
+
+    <!-- Navigation -->
+    <nav class="bottom-nav">
+
+      <a href="index.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 21V12h14v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <a href="stats.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 3v18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="7" y="12" width="3" height="6" rx="0.5" fill="currentColor"/>
+          <rect x="12" y="8" width="3" height="10" rx="0.5" fill="currentColor"/>
+          <rect x="17" y="4" width="3" height="14" rx="0.5" fill="currentColor"/>
+        </svg>
+        <span>Statistik</span>
+      </a>
+
+      <a href="tips.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 2a6 6 0 00-4 10c0 2.5 2 3 2 5h4c0-2 2-2.5 2-5a6 6 0 00-4-10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Tipps</span>
+      </a>
+
+      <a class="active" href="profile.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Profil</span>
+      </a>
+
+    </nav>
+
+  </div>
+
+  <script>
+    (async function () {
+      const el = document.getElementById('userInfo');
+      try {
+        const res = await fetch('api/protected.php', {
+          credentials: 'include'
+        });
+
+        if (res.status === 401) {
+          // Not logged in: show a message then redirect to login
+          el.textContent = 'Nicht eingeloggt — Weiterleitung zum Login...';
+          console.warn('api/protected.php returned 401 Unauthorized');
+          setTimeout(() => window.location.href = 'login.html', 900);
+          return;
+        }
+
+        if (!res.ok) {
+          // Try to show server response text for debugging
+          const txt = await res.text();
+          console.error('Protected API error', res.status, txt);
+          el.textContent = `Serverfehler (${res.status})`;
+          return;
+        }
+
+        const data = await res.json();
+        el.textContent = data.email || 'Keine E-Mail';
+
+      } catch (err) {
+        console.error('Fetch failed', err);
+        el.textContent = 'Fehler beim Laden: ' + (err.message || err);
+      }
+    })();
+  </script>
+
+  <script src="js/logout.js"></script>
+  <script src="js/nav.js"></script>
+
+
+</body>
+</html>
