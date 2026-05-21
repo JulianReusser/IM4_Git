@@ -69,6 +69,7 @@ Die Projektdateien werden auf den Server kopiert:
 In phpMyAdmin oder per SQL-Konsole folgende Tabelle erstellen:
 
 * SQL:
+
 CREATE TABLE messungen (
     id INT AUTO_INCREMENT PRIMARY KEY,
     gemessen_am TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -77,6 +78,7 @@ CREATE TABLE messungen (
 4. *Wo muss ich die DB-Credentials eintragen?* 
 In der /system/config.php -Datei müssen die Zugangsdaten angepasst werden:
 * PHP: 
+
 $host = "localhost";
 $dbname = "datenbankname";
 $user = "username";
@@ -93,6 +95,7 @@ $pdo = new PDO(
 Die Datei /api/load.php empfängt die Daten vom ESP32.
 Test erfolgreich wenn beim Senden folgende Antwort erscheint:
 "Messung gespeichert"
+
 6. *Wie nehme ich das physische Artefakt in Betrieb?*
 Im Arduino-Code folgende Werte anpassen:
 
@@ -111,13 +114,31 @@ Zusätzlich müssen folgende Libraries installiert werden:
 #### Bauanleitung Physical Computing
 
 * ***Was muss ich wie bauen, verbinden, installieren?***  
-* *ergänze: **Komponentenplan** (betrifft Physical Computing, vgl. Slides Kapitel 15): Schaubild enthält*  
-  * *die eingesetzten Komponenten*  
-  * *die verbundenen Sensoren und Aktoren*  
-  * *die Programme (mit Dateinamen)*  
-  * *die Kommunikationswege*  
-* *ergänze: **Steckplan** (betrifft Physical Computing, vgl. Slides Kapitel 15): generiert z.B. mit Fritzing (empfohlen), Tinkercad, Wokwi*  
-  * *beachtet die [Fritzing Parts](https://github.com/Interaktive-Medien/im_physical_computing/tree/main/15_Intro_Projektdoku) extra für euch*  
+
+  * *Eingesetzten Komponenten*  
+      * ESP32
+      * INMP441 Mikrofon
+      * NeoPixel LED Ring
+      * Breadboard
+      * Powerbank (optional, wenn nicht am Laptop angeschlossen)
+
+  * *Sensoren und Aktoren*  
+    * Sensor: INMP441 Mikrofon
+    * Aktor: NeoPixel LED Ring
+
+  * *Programme*
+    * mc.ino → Hauptprogramm auf ESP32
+    * load.php → API für Datenempfang
+    * config.php → Datenbankverbindung
+
+  * *Kommunikationswege* 
+    * Mikrofon → ESP32 über I2S
+    * ESP32 → LED Ring über GPIO
+    * ESP32 → Webserver über WLAN und HTTP POST
+    * Webserver → MySQL Datenbank 
+
+* *Steckplan*
+
 * *ggf. **Bildmaterial***
 
 ## technische Details
