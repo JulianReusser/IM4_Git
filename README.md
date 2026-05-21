@@ -146,14 +146,34 @@ Zusätzlich müssen folgende Libraries installiert werden:
 
 * *Steckplan*
 <img width="1050" height="1036" alt="SteckplanSnoozy" src= "/img/imgREADME/SteckplanSnoozy.jpg" >
-* *ggf. **Bildmaterial***
+  * Mikrofon
+  * VDD → 3.3V
+  * GND → GND
+  * SD → GPIO 13
+  * SCK → GPIO 2
+  * WS → GPIO 23
+  * L/R → GND
+  * LED Ring
+  * DI → GPIO 4
+  * 5V → 5V 
+  * GND → GND
 
 ## technische Details
 
-// Hier sollte das Verständnis ersichtlich sein / Wie stehen die Dateien in Beziehung zueinander, Wie reden Die Dateien miteinander, Wie ist der Weg der Daten
-
 * **Projektstruktur / Code-Struktur:** \[*Hinweis: Der Code selbst muss im Repository liegen und im Kopfbereich jeder Datei eine kurze Zusammenfassung enthalten.*\]  
+
+
 * **Datenschnittstelle: \[***zwischen WebApp und Physical Computing*\]  
+
+Der ESP32 misst kontinuierlich die Lautstärke über das INMP441 Mikrofon und verarbeitet die Audiodaten lokal im Programm mc.ino. Die berechneten Dezibelwerte werden alle 60 Sekunden als JSON via HTTP POST Request an die Datei load.php auf dem Webserver gesendet.
+load.php verarbeitet die empfangenen Daten und speichert sie mithilfe von config.php in der MySQL-Datenbank messungen. Die Website greift über unload.php auf dieselben Daten zu und visualisiert die aktuellen und historischen Messwerte.
+
+Der Datenfluss verläuft somit:
+Mikrofon → ESP32 → load.php → Datenbank → unload.php → Website
+
+Das Zusammenspiel der Dateien ist im Datenflussdiagramm dargestellt.
+<img width="1050" height="1036" alt="Datenfluss" src= "/img/imgREADME/Datenfluss.jpg" >
+
 * **ERM:** \[*Erklärung und Schaubild*\]  
 * **Authentifizierung:** \[*Erklärung*\]
 
