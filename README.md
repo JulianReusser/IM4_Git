@@ -162,7 +162,7 @@ Zusätzlich müssen folgende Libraries installiert werden:
 * **Projektstruktur / Code-Struktur:** \[*Hinweis: Der Code selbst muss im Repository liegen und im Kopfbereich jeder Datei eine kurze Zusammenfassung enthalten.*\]  
 
 
-* **Datenschnittstelle: \[***zwischen WebApp und Physical Computing*\]  
+* **Datenschnittstelle:  
 
 Der ESP32 misst kontinuierlich die Lautstärke über das INMP441 Mikrofon und verarbeitet die Audiodaten lokal im Programm mc.ino. Die berechneten Dezibelwerte werden alle 60 Sekunden als JSON via HTTP POST Request an die Datei load.php auf dem Webserver gesendet.
 load.php verarbeitet die empfangenen Daten und speichert sie mithilfe von config.php in der MySQL-Datenbank messungen. Die Website greift über unload.php auf dieselben Daten zu und visualisiert die aktuellen und historischen Messwerte.
@@ -174,7 +174,23 @@ Das Zusammenspiel der Dateien ist im Datenflussdiagramm dargestellt.
 <img width="1050" height="1036" alt="Datenfluss" src= "/img/imgREADME/Datenfluss.jpg" >
 
 * **ERM:** \[*Erklärung und Schaubild*\]  
-* **Authentifizierung:** \[*Erklärung*\]
+Die Datenbank besteht aus der Tabelle messungen. Für jede Messung wird ein Zeitstempel (gemessen_am) sowie der gemessene Dezibelwert (Dezibel) gespeichert.
+Die Tabelle dient als zentrale Schnittstelle zwischen Physical Computing und WebApp.
+
+Bild Datenbank:
+<img width="1050" height="1036" alt="Datenbank" src= "/img/imgREADME/Datenbank.jpg" >
+
+
+*Attribut - Beschreibung*
+id - Eindeutige ID
+gemessen_am - Zeitpunkt der Messung
+Dezibel	Gemessener - Lautstärkewert
+
+
+* **Authentifizierung:**
+Die Verbindung zur Datenbank erfolgt serverseitig über die Datei config.php. Dort werden die Zugangsdaten für MySQL gespeichert. Der ESP32 kommuniziert ausschliesslich mit der API load.php und besitzt keinen direkten Zugriff auf die Datenbank.
+Die Kommunikation erfolgt über HTTP Requests innerhalb eines geschützten WLAN-Netzwerks.
+
 
 ## Known bugs
 
