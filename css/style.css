@@ -81,6 +81,15 @@ body {
     0 10px 24px rgba(168,85,247,0.3);
 }
 
+/* Make the login/register video small and fit inside the logo box */
+#loginLogoVideo, #registerLogoVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 28px;
+  display: block;
+}
+
 /* Titel */
 
 .login-card h1 {
@@ -755,6 +764,18 @@ body {
   color: #888;
 }
 
+/* Chart canvas container: give charts an explicit height so Chart.js can render */
+.chart-canvas {
+  width: 100%;
+  height: 200px;
+  position: relative;
+}
+.chart-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
 /* Double Cards */
 
 .double-grid {
@@ -897,9 +918,18 @@ body {
 
   font-size: 72px;
 
-  box-shadow:
-    0 12px 30px rgba(168,85,247,0.18),
-    inset 0 2px 8px rgba(255,255,255,0.6);
+  /* neutral subtle shadow (no colored glow) */
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+.profile-big-avatar svg {
+  display: block;
+  margin: 0 auto;
+  width: 68%;
+  height: 68%;
+  opacity: 1;
+  /* Match the profile title color */
+  color: #312e81;
 }
 
 /* Titel */
