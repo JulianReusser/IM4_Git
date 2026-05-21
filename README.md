@@ -5,12 +5,12 @@
 **Team WebApp:** Julian Reusser, Melina Feldges
  
  
-** Welches Problem im Alltag von Eltern mit kleinen Kindern wird gelöst? ** \
+**Welches Problem im Alltag von Eltern mit kleinen Kindern wird gelöst?**
 
 Im Alltag von Eltern und Betreuungspersonen mit kleinen Kindern entsteht oft über längere Zeit eine hohe Lärmbelastung. Besonders in Innenräumen merken Kinder häufig nicht selbst, wie laut sie sind. Dauerhafter Lärm kann zu Stress, Konzentrationsproblemen und Überforderung bei Kindern und Erwachsenen führen.
 Die Lärmampel schafft eine direkte und verständliche Rückmeldung über die aktuelle Lautstärke. Kinder erkennen durch die Farben spielerisch, wann es zu laut wird und können ihr Verhalten selbstständig anpassen.
 
-** Was ist der „Sinn und Zweck“ des Systems? **
+**Was ist der „Sinn und Zweck“ des Systems?**
 
 Das Ziel des Projekts ist es, ein einfach verständliches System zur Sensibilisierung für Lautstärke zu entwickeln. Die visuelle Rückmeldung hilft dabei:
 ruhige Lern- und Spielumgebungen zu fördern
@@ -39,7 +39,8 @@ Durch die zusätzliche Datenspeicherung können Lautstärkeentwicklungen langfri
 #### Installationsanleitung WebApp
 Schritt-für-Schritt-Anleitung, um das Projekt zu klonen und auf einem eigenen Server zu installieren*
 
-1. *Was benötige ich an Infrastruktur?*  
+1. *Was benötige ich an Infrastruktur?*
+   
 Für das Projekt werden folgende Komponenten benötigt:
 *Hardware*
 * ESP32 Mikrocontroller
@@ -55,7 +56,8 @@ Für das Projekt werden folgende Komponenten benötigt:
 * Arduino IDE
 * WLAN-Verbindung
 
-2. *Was muss ich auf meinem Webserver installieren?* 
+2. *Was muss ich auf meinem Webserver installieren?*
+
 Auf dem Webserver müssen installiert sein:
 * PHP
 * MySQL oder MariaDB
@@ -65,7 +67,8 @@ Die Projektdateien werden auf den Server kopiert:
 /api/load.php
 /system/config.php
 
-3. *Wie kann ich die Datenbank importieren?*  
+3. *Wie kann ich die Datenbank importieren?*
+   
 In phpMyAdmin oder per SQL-Konsole folgende Tabelle erstellen:
 
 * SQL:
@@ -75,7 +78,8 @@ CREATE TABLE messungen (
     gemessen_am TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Dezibel INT
 );
-4. *Wo muss ich die DB-Credentials eintragen?* 
+4. *Wo muss ich die DB-Credentials eintragen?*
+
 In der /system/config.php -Datei müssen die Zugangsdaten angepasst werden:
 * PHP: 
 
@@ -91,12 +95,14 @@ $pdo = new PDO(
 );
 
 
-5. *API testen*  
+5. *API testen*
+   
 Die Datei /api/load.php empfängt die Daten vom ESP32.
 Test erfolgreich wenn beim Senden folgende Antwort erscheint:
 "Messung gespeichert"
 
 6. *Wie nehme ich das physische Artefakt in Betrieb?*
+
 Im Arduino-Code folgende Werte anpassen:
 
 const char* ssid = "WLAN_NAME";
