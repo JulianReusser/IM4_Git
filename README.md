@@ -144,7 +144,7 @@ Zusätzlich müssen folgende Libraries installiert werden:
     * Webserver → MySQL Datenbank 
 
 * *Steckplan*
-
+<img width="1050" height="1036" alt="SteckplanSnoozy" src= "/img/imgREADME/SteckplanSnoozy.jpg" >
 * *ggf. **Bildmaterial***
 
 ## technische Details
