@@ -5,11 +5,13 @@
 **Team WebApp:** Julian Reusser, Melina Feldges
  
  
-** Welches Problem im Alltag von Eltern mit kleinen Kindern wird gelöst?
+** Welches Problem im Alltag von Eltern mit kleinen Kindern wird gelöst? ** \
+
 Im Alltag von Eltern und Betreuungspersonen mit kleinen Kindern entsteht oft über längere Zeit eine hohe Lärmbelastung. Besonders in Innenräumen merken Kinder häufig nicht selbst, wie laut sie sind. Dauerhafter Lärm kann zu Stress, Konzentrationsproblemen und Überforderung bei Kindern und Erwachsenen führen.
 Die Lärmampel schafft eine direkte und verständliche Rückmeldung über die aktuelle Lautstärke. Kinder erkennen durch die Farben spielerisch, wann es zu laut wird und können ihr Verhalten selbstständig anpassen.
 
-** Was ist der „Sinn und Zweck“ des Systems?
+** Was ist der „Sinn und Zweck“ des Systems? **
+
 Das Ziel des Projekts ist es, ein einfach verständliches System zur Sensibilisierung für Lautstärke zu entwickeln. Die visuelle Rückmeldung hilft dabei:
 ruhige Lern- und Spielumgebungen zu fördern
 Stress und Lärmbelastung zu reduzieren
