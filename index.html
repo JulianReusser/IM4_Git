@@ -1,11 +1,390 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+  <title>Soozy Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-    <h1>Hello Worlddd!</h1>
+
+  <script src="js/auth-check.js"></script>
+
+  <div class="dashboard">
+
+    <!-- Header -->
+    <header class="topbar">
+      <h1>Dashboard</h1>
+    </header>
+
+    <!-- Status Card -->
+    <section class="card status-card">
+      <div class="card-header">
+        <h2>Snoozy Status</h2>
+
+        <button id="statusToggle" class="status-badge active" aria-pressed="true">⏻ Aktiv</button>
+      </div>
+
+      <div class="mascot">
+        <video id="mascotVideo" autoplay muted playsinline loop preload="auto" aria-hidden="true">
+          <source src="img/sleeping.mp4" type="video/mp4">
+          <!-- fallback image -->
+          <img src="img/snoozy.png" alt="Snoozy Maskottchen" />
+        </video>
+      </div>
+    </section>
+
+    <!-- Lautstärke -->
+    <section class="card">
+      <h2> Lautstärkepegel</h2>
+
+      <div class="volume-wrapper">
+        <div class="volume-fill" id="volumeFill">
+          <span id="volumeValue">69%</span>
+        </div>
+      </div>
+
+      <p class="volume-warning" id="volumeMessage">Zu laut!</p>
+
+      <input
+        type="range"
+        id="volume"
+        min="0"
+        max="100"
+        value="69"
+        disabled
+        hidden
+      />
+    </section>
+
+   
+    <section class="card cookie-card">
+      <div class="cookie-header">
+        <h2>Keks-System</h2>
+        <span class="cookie-count" id="cookieCount">3/3</span>
+      </div>
+
+      <div class="cookie-container" id="cookieContainer">
+      </div>
+
+      <p class="cookie-info" id="cookieInfo">
+        Noch 3x darf es laut sein heute
+      </p>
+    </section>
+
+    <!-- Statistik -->
+    <section class="card">
+      <h2>Tagesstatistik</h2>
+
+      <div class="stats-grid">
+
+        <div class="stat-box blue">
+          <span>Ø Lärm heute</span>
+          <strong id="avgDbStat">42 dB</strong>
+        </div>
+
+        <div class="stat-box green">
+          <span>Ruhigste Zeit</span>
+          <strong id="minDbStat">38 dB</strong>
+        </div>
+
+        <div class="stat-box orange">
+          <span>Lauteste Zeit</span>
+          <strong id="maxDbStat">65 dB</strong>
+        </div>
+
+        <div class="stat-box purple">
+          <span>Aktuell</span>
+          <strong id="currentDbStat">71 dB</strong>
+        </div>
+
+      </div>
+    </section>
+
+  <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <a href="index.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 21V12h14v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <a href="stats.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 3v18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="7" y="12" width="3" height="6" rx="0.5" fill="currentColor"/>
+          <rect x="12" y="8" width="3" height="10" rx="0.5" fill="currentColor"/>
+          <rect x="17" y="4" width="3" height="14" rx="0.5" fill="currentColor"/>
+        </svg>
+        <span>Statistik</span>
+      </a>
+
+      <a href="tips.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 2a6 6 0 00-4 10c0 2.5 2 3 2 5h4c0-2 2-2.5 2-5a6 6 0 00-4-10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Tipps</span>
+      </a>
+
+      <a href="profile.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Profil</span>
+      </a>
+    </nav>
+  
+  </div>
+
+  <script>
+    // Volume UI elements
+    const vol = document.getElementById('volume');
+    const volVal = document.getElementById('volumeValue');
+    const volFill = document.getElementById('volumeFill');
+    const currentStat = document.getElementById('currentDbStat');
+
+    // Map dB (1-120) to percentage for the progress bar
+    function dbToPercent(db) {
+      const clamped = Math.max(1, Math.min(120, Number(db) || 0));
+      return Math.round((clamped / 120) * 100);
+    }
+
+    // Polling interval (ms)
+    const POLL_INTERVAL = 10000; // 10s
+
+    async function fetchDayStats() {
+      try {
+        const res = await fetch('api/day_stats.php', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Network response not ok');
+        const data = await res.json();
+        if (!data || !data.success) return;
+
+        // Update avg/min/max/latest UI
+        const avgEl = document.getElementById('avgDbStat');
+        const minEl = document.getElementById('minDbStat');
+        const maxEl = document.getElementById('maxDbStat');
+        const latestEl = document.getElementById('currentDbStat');
+
+        if (avgEl) avgEl.textContent = data.avg !== null ? Math.round(data.avg) + ' dB' : '—';
+        if (minEl) minEl.textContent = data.min !== null ? Math.round(data.min) + ' dB' : '—';
+        if (maxEl) maxEl.textContent = data.max !== null ? Math.round(data.max) + ' dB' : '—';
+        if (latestEl) latestEl.textContent = data.latest !== null ? Math.round(data.latest) + ' dB' : '—';
+
+        // Also update the top volume bar and message based on latest
+        if (typeof data.latest !== 'undefined' && data.latest !== null) {
+          updateVolumeUI(Math.round(data.latest));
+        }
+      } catch (err) {
+        console.error('Failed to fetch day stats:', err);
+      }
+    }
+
+    function updateVolumeUI(dbValue) {
+      const shown = Math.max(1, Math.min(120, Number(dbValue) || 0));
+      vol.max = 120;
+      vol.value = shown;
+      volVal.textContent = shown + ' dB';
+      volFill.style.width = dbToPercent(shown) + '%';
+
+      const msgEl = document.getElementById('volumeMessage');
+      volFill.classList.remove('green','orange','red');
+      if (shown <= 65) {
+        volFill.classList.add('green');
+        if (msgEl) msgEl.textContent = 'Schön ruhig hier, weiter so!';
+      } else if (shown > 65 && shown <= 85) {
+        volFill.classList.add('orange');
+        if (msgEl) msgEl.textContent = 'Es wird unruhig, eingreifen lohnt sich';
+      } else {
+        volFill.classList.add('red');
+        if (msgEl) msgEl.textContent = 'Lärmalarm! Schau in die Tipps und greif ein!';
+      }
+      const currentStat = document.getElementById('currentDbStat');
+      if (currentStat) currentStat.textContent = shown + ' dB';
+
+      // swap mascot video source depending on state, do not apply visual changes
+      try {
+        const v = document.getElementById('mascotVideo');
+        if (v) {
+          const src = (shown <= 65) ? 'img/sleeping.mp4' : (shown <= 85 ? 'img/awake.mp4' : 'img/angry.mp4');
+          if (v.querySelector('source') && v.querySelector('source').src.indexOf(src) === -1) {
+            v.querySelector('source').src = src;
+            v.load();
+            // try to play; muted autoplay should work in most browsers
+            v.play().catch(()=>{});
+          }
+        }
+      } catch (e) {
+        console.warn('Video switch failed', e);
+      }
+    }
+
+    // --- Cookie system ---
+    let lastWasAlarm = false; // track previous alarm state to avoid multiple decrements
+
+    async function fetchCookies() {
+      try {
+        const res = await fetch('api/cookies.php');
+        const data = await res.json();
+        if (data && data.success) renderCookies(data.count);
+      } catch (err) {
+        console.error('Failed to fetch cookies:', err);
+      }
+    }
+
+    function renderCookies(count) {
+      const container = document.getElementById('cookieContainer');
+      const counter = document.getElementById('cookieCount');
+      const info = document.getElementById('cookieInfo');
+      if (!container || !counter || !info) return;
+      container.innerHTML = '';
+      for (let i = 0; i < 3; i++) {
+        const box = document.createElement('div');
+        box.className = 'cookie-box';
+        box.textContent = i < count ? '🍪' : '';
+        container.appendChild(box);
+      }
+      counter.textContent = `${count}/3`;
+      info.textContent = `Noch ${count}x darf es laut sein heute`;
+    }
+
+    async function decrementCookie() {
+      try {
+        const res = await fetch('api/cookies.php', { method: 'POST' });
+        const data = await res.json();
+        if (data && data.success) renderCookies(data.count);
+      } catch (err) {
+        console.error('Failed to decrement cookie:', err);
+      }
+    }
+
+  // Expose global active flag (true = measuring) and initialize from localStorage
+  const persisted = localStorage.getItem('soozy_active');
+  window.SOOZY_ACTIVE = persisted === 'false' ? false : true; // default true
+
+  // Update fetchCookies on load
+  // We'll manage polling via start/stop functions so the toggle can pause everything
+  let _dayPoll = null;
+    let _cookiePoll = null;
+
+    function startPolls() {
+      if (!window.SOOZY_ACTIVE) window.SOOZY_ACTIVE = true;
+      // start day stats polling
+      if (!_dayPoll) {
+        fetchDayStats();
+        _dayPoll = setInterval(() => { if (window.SOOZY_ACTIVE) fetchDayStats(); }, POLL_INTERVAL);
+      }
+      // start cookie polling (every minute)
+      if (!_cookiePoll) {
+        fetchCookies();
+        _cookiePoll = setInterval(() => { if (window.SOOZY_ACTIVE) fetchCookies(); }, 60000);
+      }
+      // immediately restore UI from inactive state
+      setActiveStateIndex();
+    }
+
+    function stopPolls() {
+      window.SOOZY_ACTIVE = false;
+      if (_dayPoll) { clearInterval(_dayPoll); _dayPoll = null; }
+      if (_cookiePoll) { clearInterval(_cookiePoll); _cookiePoll = null; }
+      // set UI to inactive immediately
+      setInactiveStateIndex();
+    }
+
+  // start polls only if active
+  if (window.SOOZY_ACTIVE) startPolls(); else setInactiveStateIndex();
+
+    // UI helpers for index page to show inactive/active states
+    function setInactiveStateIndex() {
+      const inactiveText = 'Inaktiv';
+      const avgEl = document.getElementById('avgDbStat'); if (avgEl) avgEl.textContent = inactiveText;
+      const minEl = document.getElementById('minDbStat'); if (minEl) minEl.textContent = inactiveText;
+      const maxEl = document.getElementById('maxDbStat'); if (maxEl) maxEl.textContent = inactiveText;
+      const curEl = document.getElementById('currentDbStat'); if (curEl) curEl.textContent = inactiveText;
+      const volValEl = document.getElementById('volumeValue'); if (volValEl) volValEl.textContent = inactiveText;
+      const volFillEl = document.getElementById('volumeFill'); if (volFillEl) { volFillEl.style.width = '2%'; volFillEl.classList.remove('green','orange','red'); }
+      // cookies
+      const cookieCount = document.getElementById('cookieCount'); if (cookieCount) cookieCount.textContent = inactiveText;
+      const cookieInfo = document.getElementById('cookieInfo'); if (cookieInfo) cookieInfo.textContent = '';
+    }
+
+    function setActiveStateIndex() {
+      // restore by fetching immediately
+      fetchDayStats();
+      fetchCookies();
+      // charts are handled elsewhere
+    }
+
+    // Modify updateVolumeUI to decrement cookie on crossing into alarm (>85)
+    const originalUpdate = updateVolumeUI;
+    updateVolumeUI = function(dbValue) {
+      const shown = Math.max(1, Math.min(120, Number(dbValue) || 0));
+      // if we cross from non-alarm to alarm (>85), decrement
+      const isAlarm = shown > 85;
+      if (isAlarm && !lastWasAlarm) {
+        // fire decrement but don't block UI
+        decrementCookie();
+      }
+      lastWasAlarm = isAlarm;
+      // call original behavior
+      originalUpdate(dbValue);
+    };
+
+    // Initial fetch and regular polling
+    // Charts use their own polling; ensure they respect SOOZY_ACTIVE by checking before fetching
+    if (window.updateCharts) {
+      // updateCharts() already checks for session; we'll call it only when active
+      updateCharts();
+      setInterval(() => { if (window.SOOZY_ACTIVE && typeof updateCharts === 'function') updateCharts(); }, 30000);
+    }
+
+    // Button handler for status toggle
+    (function(){
+      const btn = document.getElementById('statusToggle');
+      const vid = document.getElementById('mascotVideo');
+      function setActive(active) {
+        if (active) {
+          btn.classList.remove('inactive');
+          btn.classList.add('active');
+          btn.textContent = '⏻ Aktiv';
+          btn.setAttribute('aria-pressed','true');
+          // resume video and polls
+          try { if (vid) { vid.play().catch(()=>{}); } } catch(e){}
+          startPolls();
+        } else {
+          btn.classList.remove('active');
+          btn.classList.add('inactive');
+          btn.textContent = '⏻ Inaktiv';
+          btn.setAttribute('aria-pressed','false');
+          // pause video and stop polls
+          try { if (vid) vid.pause(); } catch(e){}
+          stopPolls();
+        }
+      }
+      // initialize button visual state from localStorage so it persists across pages/reloads
+      try {
+        const persistedBtn = localStorage.getItem('soozy_active');
+        const initial = persistedBtn === 'false' ? false : true;
+        // Call setActive to reflect the persisted state in the UI
+        setActive(initial);
+      } catch (e) {
+        // ignore storage errors
+      }
+      // attach
+      btn.addEventListener('click', function(){
+        const newActive = !btn.classList.contains('active');
+        // persist
+        localStorage.setItem('soozy_active', newActive ? 'true' : 'false');
+        setActive(newActive);
+      });
+    })();
+  </script>
+
+  <script src="js/nav.js"></script>
+
 </body>
 </html>

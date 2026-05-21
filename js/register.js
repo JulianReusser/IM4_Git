@@ -1,35 +1,48 @@
-console.log("register.js wurde geladen");
+// register.js
+const form = document.getElementById("registerForm");
+const messageEl = document.getElementById("registerMessage");
 
-document.getElementById("registerForm")
-.addEventListener("submit", async (e) => {
+function showMessage(text, type = "info") {
+  if (!messageEl) return;
+  messageEl.textContent = text;
+  messageEl.className = "message " + type; // allow styling via CSS
+}
 
-e.preventDefault();
-console.log("Formular wurde abgeschickt");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const confirm = document.getElementById("confirmPassword").value.trim();
 
-const email = document.getElementById("email").
-value.trim();
+  if (password !== confirm) {
+    showMessage("Passwörter stimmen nicht überein.", "error");
+    return;
+  }
 
-const password = document.getElementById("password").
-value.trim();
+  showMessage("Registering...", "info");
 
-console.log(email + " " + password);
-
-
-try {
+  try {
     const response = await fetch("api/register.php", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ email, password }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
     });
-
-
     const result = await response.json();
-    console.log("Result ist:", result);
-} catch (error) {
+
+    if (result.status === "success") {
+      showMessage("Registration successful! You will be redirected to the login page.", "success");
+      // Redirect after a short delay so user sees the message
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 2000);
+    } else {
+      showMessage(result.message || "Registration failed.", "error");
+    }
+  } catch (error) {
     console.error("Error:", error);
-    alert("Error: " + error);
-}   
-
+    showMessage("Something went wrong. Please try again.", "error");
+  }
 });
-
