@@ -54,6 +54,22 @@ try {
     }
 
     // Compute averages per hour for today
+    // Fetch per-hour averages for today so we can return a 24-entry series
+    $sqlSeries = "SELECT HOUR($timeCol) AS hr, AVG($dbCol) AS avg_db
+        FROM messungen
+        WHERE DATE($timeCol) = CURDATE()
+        GROUP BY hr";
+    $rows = $pdo->query($sqlSeries)->fetchAll(PDO::FETCH_ASSOC);
+
+    // initialize series with nulls for 0..23
+    $series = array_fill(0, 24, null);
+    foreach ($rows as $r) {
+        if (isset($r['hr'])) {
+            $h = (int)$r['hr'];
+            $series[$h] = isset($r['avg_db']) ? round($r['avg_db'], 0) : null;
+        }
+    }
+
     // loudest hour (highest avg)
     $sqlMax = "SELECT HOUR($timeCol) AS hr, AVG($dbCol) AS avg_db
         FROM messungen
@@ -78,27 +94,7 @@ try {
     $hourMin = $rowMin ? (int)$rowMin['hr'] : null;
     $avgMin = $rowMin && isset($rowMin['avg_db']) ? round($rowMin['avg_db'],0) : null;
 
-    // also build a full per-hour series for today's averages (0..23)
-    $series = array_fill(0, 24, null);
-    $sqlSeries = "SELECT HOUR($timeCol) AS hr, AVG($dbCol) AS avg_db
-        FROM messungen
-        WHERE DATE($timeCol) = CURDATE()
-        GROUP BY hr
-        ORDER BY hr";
-    $rows = $pdo->query($sqlSeries)->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($rows as $r) {
-        $h = isset($r['hr']) ? (int)$r['hr'] : null;
-        if ($h !== null && $h >=0 && $h <= 23) {
-            $series[$h] = isset($r['avg_db']) ? round($r['avg_db'],0) : null;
-        }
-    }
-
-    echo json_encode([
-        'success' => true,
-        'loud' => ['hour' => $hourMax, 'avg' => $avgMax],
-        'quiet' => ['hour' => $hourMin, 'avg' => $avgMin],
-        'series' => $series
-    ]);
+    echo json_encode(['success' => true, 'series' => $series, 'loud' => ['hour' => $hourMax, 'avg' => $avgMax], 'quiet' => ['hour' => $hourMin, 'avg' => $avgMin]]);
 
 } catch (Exception $e) {
     http_response_code(500);

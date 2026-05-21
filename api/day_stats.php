@@ -57,10 +57,6 @@ try {
         $stmt2 = $pdo->prepare("SELECT * FROM messungen WHERE DATE($timeCol) = CURDATE() ORDER BY id DESC LIMIT 1");
         $stmt2->execute();
         $latestRow = $stmt2->fetch(PDO::FETCH_ASSOC);
-        // row with max value today (to get exact timestamp)
-        $stmtMax = $pdo->prepare("SELECT $timeCol AS ts, $dbCol AS val FROM messungen WHERE DATE($timeCol) = CURDATE() ORDER BY $dbCol DESC LIMIT 1");
-        $stmtMax->execute();
-        $maxRow = $stmtMax->fetch(PDO::FETCH_ASSOC);
     } else {
         // No timestamp column: compute stats over all rows (best-effort)
         $sql = "SELECT AVG($dbCol) AS avg_db, MIN($dbCol) AS min_db, MAX($dbCol) AS max_db FROM messungen";
@@ -86,9 +82,7 @@ try {
         'avg' => $avg === null ? null : round($avg, 0),
         'min' => $min === null ? null : round($min, 0),
         'max' => $max === null ? null : round($max, 0),
-        'latest' => $latest === null ? null : round($latest, 0),
-        'max_value' => (isset($maxRow['val']) && is_numeric($maxRow['val'])) ? (int)round($maxRow['val']) : null,
-        'max_time' => isset($maxRow['ts']) ? $maxRow['ts'] : null
+        'latest' => $latest === null ? null : round($latest, 0)
     ];
 
     echo json_encode($response);
