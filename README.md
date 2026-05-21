@@ -29,7 +29,8 @@ Durch die zusätzliche Datenspeicherung können Lautstärkeentwicklungen langfri
 * **User Flow \+ Screen Flow** (Screenshot aus Figma)  
 * ggf. weitere Ergänzungen
 * *Welche Features waren angedacht?* 
-* *Welche Features wurden nicht umgesetzt? (Warum)* Community Plattform
+
+* *Welche Features wurden nicht umgesetzt? (Warum)* Community Plattform wurde nicht umgesetzt, da diese Idee zu kompliziert und umfangreich für unser Projekt geworden wäre. 
 
 ### Setup
 
