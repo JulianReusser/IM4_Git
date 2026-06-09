@@ -1,4 +1,4 @@
-<img width="643" height="565" alt="Bildschirmfoto 2026-06-09 um 11 59 55" src="https://github.com/user-attachments/assets/9c7d3b6b-242e-4336-96aa-65004eb3720f" />**Modul:** Interaktive Medien 4 an der Fachhochschule Graubünden (FS26)  
+>**Modul:** Interaktive Medien 4 an der Fachhochschule Graubünden (FS26)  
 **Themenfeld:** IoT-Applikation zum Thema Eltern mit kleinen Kindern  
 **Name des Projekts:** Snoozy
 **Team Physical Computing:** Alessio Amstutz, Nicolas Egger   
@@ -27,15 +27,28 @@ Durch die zusätzliche Datenspeicherung können Lautstärkeentwicklungen langfri
 
 * **Figma:** [https://www.figma.com/design/k7f68YyhJYzzhHjEhYSf9f/IM-4-–-App-Konzeption-Bialetti?node-id=78-325&p=f&t=RwKo7n8ZB4Db5avx-0)
 * **User Flow \+ Screen Flow**
+<img width="643" height="565" alt="Bildschirmfoto 2026-06-09 um 11 59 55" src="https://github.com/user-attachments/assets/9c7d3b6b-242e-4336-96aa-65004eb3720f" />
    
-* ggf. weitere Ergänzungen
 * *Welche Features waren angedacht?*
+  - Register: Nutzer:innen können Email-Adresse und Passwort angeben und so einen neuen User/eine neue Userin erstellen
+  - Login: Nutzer:innen können sich mit erstelltem User/Userin einloggen
+  - Snoozy-Status: zeigt den aktuellen Stand der Lautstärke an. Monster schläft, wenn es ruhig ist und erwacht, wenn es lauter wird. Ist es ganz laut wird das Monster wütend und verbraucht einen Keks.
+  - Lautstärkepegel: zeigt die aktuelle Lautstärke an
+  - Keks-System: Keks wird verbraucht/vom Monster gegessen, wenn es zu Laut ist. Pro Tag dürfen höchstens drei Kekse verbraucht werden.
+  - Tagesstatistik: Hier wird der Durchschnittliche Lärm des Tages, den lautesten und leisesten gemessenen Wert des Tages und den aktuell gemessenen Wert
+  - Wochestatistik: Zeigt den durchschnittlichen Lärm der Woche und einen Vergleich zur letzten Woche an.
+  - Wochenübersicht: Zeigt die Durchschnittslautsärke der einzelnen Wochentage in einem Säulendiagramm an, damit ein direkter Vergleich zwischen den Wochentagen möglich ist. 
+  - Tagesverlauf: Auf einem Kurvendiagramm wird angezeigt, wie sich die Laustärke über den Tag verteilt verändert. Darunter wird jeweils die lauteste und leiseste Stunde des Tages angezeigt.
+  - Wochenperformance: Die Tage werden noch einmal in einem Balkendiagramm miteinander verglichen, hier wird zusätzlich der genaue Durchschnittswert des Tages angezeigt und die leiseste Laustärke des Tages beschrieben.
+Zusammenfassung: Übersicht über alle wichtigen gemessenen Daten
+Tipps: Für erziehende Personen können verschiedene Tipps angezeigt werden, die zur Reduzierung der Lautstärke beitragen sollen. Zudem sollen Notizen von den Erzieher:innen angelegt werden können und die besten Tipps als "best Practices" aufgelistet werden.
+Community Plattform: Die Erzieher:innen sollen sich untereinander durch ein Community-Feature austauschen können und beispielsweise erprobte Tipps miteinander teilen können.
   
 
-* *Welche Features wurden nicht umgesetzt? (Warum)* Community Plattform wurde nicht umgesetzt, da diese Idee zu kompliziert und umfangreich für unser Projekt geworden wäre. 
+* *Welche Features wurden nicht umgesetzt? (Warum)* Community Plattform und "Best Practices" wurde nicht umgesetzt, da diese Ideen zu kompliziert und umfangreich für unser Projekt geworden wäre. Zudem haben wir die Notizen weggelassen, da diese unserer Meinung nach keinen besondern Mehrwert geboten hätten und das Speichern zu kompliziert geworden wäre. 
+
 
 ### Setup
-
 * **WebApp:** [https://im4.julianreusser.ch)  
 * **Video-Dokumentation:** [Link zum Video auf Youtube](http://link.zum.video) 
 
