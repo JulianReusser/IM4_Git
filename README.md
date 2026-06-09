@@ -209,13 +209,23 @@ Die Kommunikation erfolgt über HTTP Requests innerhalb eines geschützten WLAN-
 
 ## Known bugs
 
-* Was funktioniert noch nicht einwandfrei?  
-* Was ist uns aufgefallen bei der Entwicklung?  
+* Was funktioniert noch nicht einwandfrei? Das Projekt läuft technisch stabil. Es gibt jeodch einen Messfehler, der uns einen Wert von -28 dB produziert hat, der nun fälschlicherweise als tiefster gemessener Wert erscheint. Da wir das System nie eine ganze Woche durchgehend messen liessen, ist die Wochenübersicht zudem nur eingeschränkt aussagekräftig.
+
+* Was ist uns aufgefallen bei der Entwicklung?
+Sobald die Datenbank stand, verlief das Auslesen und Darstellen der Daten überraschend ohne weitere Probleme. Mehr Zeit beanspruchte die Kalibrierung des Mikrofons, damit die Werte mit realen Dezibelwerten übereinstimmen und Ausreisser möglichst vermieden werden.
+
+
 * Was könnte noch verbessert werden?
+Mit der Darstellung der Daten und der Messart sind wir eigtentlich zufrieden. Was dem Produkt jedoch einen grösseren Mehrwert geben würde, ist das Community-Feature: Wenn Erziehende erprobte Tipps direkt teilen könnten, wären die Empfehlungen viel hilfreicher.
 
 ## Umsetzungsprozess
 
 * **Reflexion / Erfahrung / Lernfortschritt:** *Was haben wir gelernt? Würden wir es nochmal genauso machen? Was war gut, was war schlecht?*  
-* **Herausforderungen & Lösungen:** \[*Verworfene Ansätze, Fehler, Umplanungen*\]  
-* **KI-Einsatz:** *Dokumentation der verwendeten KI-Tools und deren Nutzen (KI ist nicht verboten)*  
-* **Fazit:** …
+Die Verteilung der Aufgaben nach unseren Stärken hat sich bewährt, wir würden uns noch einmal so aufteilen. Auch die Datendarstellung überzeugt uns nach wie vor. Wir würden aber ein nächstes Mal zusätzlich zur Lautstärke weitere Daten erfassen, um ein noch vielseitigeres Produkt zu entwickeln. Mit dem Erreichten sind wir aber zufrieden.
+
+* **Herausforderungen & Lösungen:** \[*Verworfene Ansätze, Fehler, Umplanungen*\]
+Das Community-Feature haben wir gestrichen, da es zu komplex geworden wäre. Technisch war für uns vor allem die Kalibrierung des Sensors die grösste Herausforderung. Gelöst haben wir das durch viel Ausprobieren, den Einsatz von KI und gelegentliche Unterstützung durch die Dozierenden.
+
+* **KI-Einsatz:** *Dokumentation der verwendeten KI-Tools und deren Nutzen (KI ist nicht verboten)*  Wir haben uns vor allem von GitHub Copilot und Claude.ai helfen lassen, dies hauptsächlich für das Schreiben von Code und dem Debugging.
+* **Fazit:**
+Unser Projekt "Snoozy" erfüllt seinen Kernzweck so wie wir uns das vorgestellt haben: die Lautstärke wird sicht-und erlebbar und könnte mit Kindern eingestetz werden und dort zu leiseren Kitas beitragen. Wir nehmen mit, dass eine klare Aufgabenteilung, gute Werkzeuge und die Bereitschaft einfach auszuprobieren zum Gelingen eines Projektes essenziell sind.
