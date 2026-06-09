@@ -1,12 +1,10 @@
 <?php
-// register.php
 session_start();
 header('Content-Type: application/json');
 
 require_once '../system/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     $data = json_decode(file_get_contents("php://input"), true);
 
     $email    = trim($data['email'] ?? '');

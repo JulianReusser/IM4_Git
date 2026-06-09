@@ -13,12 +13,10 @@
   <script src="js/auth-check.js"></script>
   <div class="dashboard">
 
-    <!-- Header -->
     <header class="topbar">
       <h1>Statistik</h1>
     </header>
 
-    <!-- Durchschnitt -->
     <section class="card average-card">
       <p class="small-title">Durchschnittlicher Lärm (Woche)</p>
 
@@ -27,9 +25,6 @@
       <p class="trend down">↓ 3 dB vs. letzte Woche</p>
     </section>
 
-    <!-- removed static Wochenübersicht; dynamic charts below are used -->
-
-    <!-- Tagesverlauf -->
     <section class="card">
       <h2>Tagesverlauf (Heute)</h2>
 
@@ -47,15 +42,13 @@
         </div>
     </section>
 
-      <!-- Wochen-Chart -->
-      <section class="card">
-        <h2>Wochenübersicht (Mo–Fr)</h2>
-        <div class="chart-canvas">
-          <canvas id="weekBarChart" width="600" height="200" aria-label="Wochenübersicht" role="img"></canvas>
-        </div>
-      </section>
+    <section class="card">
+      <h2>Wochenübersicht (Mo–Fr)</h2>
+      <div class="chart-canvas">
+        <canvas id="weekBarChart" width="600" height="200" aria-label="Wochenübersicht" role="img"></canvas>
+      </div>
+    </section>
 
-    <!-- Lauteste / Leiseste -->
     <div class="double-grid">
 
       <section class="mini-card loud-card">
@@ -72,7 +65,6 @@
 
     </div>
 
-    <!-- Wochenperformance -->
     <section class="card">
       <h2>Wochenperformance</h2>
 
@@ -131,7 +123,6 @@
       </div>
     </section>
 
-    <!-- Zusammenfassung -->
     <section class="card summary-card">
       <h2>Zusammenfassung</h2>
 
@@ -142,9 +133,7 @@
         <li>Leisester Wochentag <strong id="summaryQuietWeekday">Di (38 dB)</strong></li>
       </ul>
     </section>
-  </section>
 
-  <!-- Bottom Navigation -->
   <nav class="bottom-nav">
       <a href="index.html">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">

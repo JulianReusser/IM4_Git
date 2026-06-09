@@ -28,10 +28,38 @@ async function loadStats() {
 
 document.addEventListener('DOMContentLoaded', loadStats);
 
+const SOOZY_ACTIVE_KEY = 'soozy_active';
+const INACTIVE_STATS_MESSAGE = 'Inaktiv — es werden momentan keine Daten geladen';
+const WEEKDAY_NAMES = ['Mo', 'Di', 'Mi', 'Do', 'Fr'];
+
+function isStatsActive() {
+    return window.SOOZY_ACTIVE !== false;
+}
+
+function isPersistedActive() {
+    return localStorage.getItem(SOOZY_ACTIVE_KEY) !== 'false';
+}
+
+function setTextById(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+}
+
+function formatHourRange(hour) {
+    const pad = (value) => (value < 10 ? '0' + value : '' + value);
+    return `${pad(hour)}:00 - ${pad(hour === 23 ? 0 : hour + 1)}:00`;
+}
+
+function formatHourSummary(obj) {
+    if (!obj || obj.hour === null) return '—';
+    const avgText = obj.avg !== null ? ` (Ø ${Math.round(obj.avg)} dB)` : '';
+    return `${formatHourRange(obj.hour)}${avgText}`;
+}
+
 // Fetch weekly average and update the big stat
 async function loadWeekAverage() {
     // If app is inactive, show inactive message and skip fetching
-    if (window.SOOZY_ACTIVE === false) {
+    if (!isStatsActive()) {
         setInactiveState();
         return;
     }
@@ -49,22 +77,17 @@ async function loadWeekAverage() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // respect persisted activity state
-    const persisted = localStorage.getItem('soozy_active');
-    const isActive = persisted === 'false' ? false : true;
-    if (!isActive) {
-        // show inactive UI and don't start polling
+    if (!isPersistedActive()) {
         setInactiveState();
     } else {
         loadWeekAverage();
-        // optional: refresh every 30s
         setInterval(loadWeekAverage, 30000);
     }
 });
 
 // Load per-weekday averages (Mon-Fri) and populate the performance list
 async function loadWeekDays() {
-    if (window.SOOZY_ACTIVE === false) {
+    if (!isStatsActive()) {
         setInactiveState();
         return;
     }
@@ -130,9 +153,7 @@ async function loadWeekDays() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const persisted2 = localStorage.getItem('soozy_active');
-    const isActive2 = persisted2 === 'false' ? false : true;
-    if (!isActive2) {
+    if (!isPersistedActive()) {
         setInactiveState();
     } else {
         loadWeekDays();
@@ -209,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Load loudest and quietest hour of today and update loud & quiet cards
 async function loadHourStats() {
-    if (window.SOOZY_ACTIVE === false) {
+    if (!isStatsActive()) {
         setInactiveState();
         return;
     }
@@ -232,10 +253,7 @@ async function loadHourStats() {
             }
             const hour = obj.hour;
             const avg = obj.avg;
-            const start = hour;
-            const end = (hour === 23) ? 0 : hour + 1;
-            const pad = n => (n < 10 ? '0' + n : '' + n);
-            const rangeText = `${pad(start)}:00 - ${pad(end)}:00`;
+            const rangeText = formatHourRange(hour);
             let period = '';
             if (hour >= 6 && hour < 10) period = 'morgen';
             else if (hour >= 10 && hour < 12) period = 'vormittag';
@@ -256,9 +274,7 @@ async function loadHourStats() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const persisted3 = localStorage.getItem('soozy_active');
-    const isActive3 = persisted3 === 'false' ? false : true;
-    if (!isActive3) {
+    if (!isPersistedActive()) {
         setInactiveState();
     } else {
         loadHourStats();
@@ -268,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Load the summary card: today's avg, quietest hour today, loudest hour today, quietest weekday
 async function loadSummary() {
-    if (window.SOOZY_ACTIVE === false) {
+    if (!isStatsActive()) {
         setInactiveState();
         return;
     }
@@ -298,17 +314,8 @@ async function loadSummary() {
         const summaryQuietEl = document.getElementById('summaryQuietHour');
         if (hourRes.ok) {
             const hourData = await hourRes.json();
-            function formatHourObj(obj) {
-                if (!obj || obj.hour === null) return '—';
-                const h = obj.hour;
-                const pad = n => (n < 10 ? '0' + n : '' + n);
-                const start = pad(h) + ':00';
-                const end = pad((h === 23) ? 0 : h + 1) + ':00';
-                const avgText = (obj.avg !== null) ? ' (Ø ' + Math.round(obj.avg) + ' dB)' : '';
-                return start + ' - ' + end + avgText;
-            }
-            if (summaryLoudEl) summaryLoudEl.textContent = formatHourObj(hourData.loud);
-            if (summaryQuietEl) summaryQuietEl.textContent = formatHourObj(hourData.quiet);
+            if (summaryLoudEl) summaryLoudEl.textContent = formatHourSummary(hourData.loud);
+            if (summaryQuietEl) summaryQuietEl.textContent = formatHourSummary(hourData.quiet);
         } else {
             if (summaryLoudEl) summaryLoudEl.textContent = '—';
             if (summaryQuietEl) summaryQuietEl.textContent = '—';
@@ -319,7 +326,6 @@ async function loadSummary() {
         if (weekRes.ok) {
             const weekData = await weekRes.json();
             if (weekData && weekData.success && Array.isArray(weekData.days)) {
-                const names = ['Mo','Di','Mi','Do','Fr'];
                 let best = null; // {idx, avg}
                 weekData.days.forEach((d, i) => {
                     if (d && d.avg !== null) {
@@ -328,7 +334,7 @@ async function loadSummary() {
                     }
                 });
                 if (best) {
-                    summaryQuietWeekEl.textContent = names[best.idx] + ' (Ø ' + Math.round(best.avg) + ' dB)';
+                    summaryQuietWeekEl.textContent = WEEKDAY_NAMES[best.idx] + ' (Ø ' + Math.round(best.avg) + ' dB)';
                 } else {
                     summaryQuietWeekEl.textContent = '—';
                 }
@@ -356,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Set UI to indicate inactive state across the stats page
 function setInactiveState() {
-    const msg = 'Inaktiv — es werden momentan keine Daten geladen';
+    const msg = INACTIVE_STATS_MESSAGE;
     // big week stat
     const big = document.querySelector('.average-card .big-stat');
     if (big) big.textContent = msg;
@@ -373,17 +379,15 @@ function setInactiveState() {
         if (fill) { fill.style.width = '2%'; fill.style.background = '#e5e7eb'; }
     });
     // loud/quiet cards
-    const hTextL = document.getElementById('loudHourText');
-    const descL = document.getElementById('loudDesc');
-    const hTextQ = document.getElementById('quietHourText');
-    const descQ = document.getElementById('quietDesc');
-    if (hTextL) hTextL.textContent = msg; if (descL) descL.textContent = '';
-    if (hTextQ) hTextQ.textContent = msg; if (descQ) descQ.textContent = '';
+    setTextById('loudHourText', msg);
+    setTextById('loudDesc', '');
+    setTextById('quietHourText', msg);
+    setTextById('quietDesc', '');
     // summary fields
-    const sAvg = document.getElementById('summaryAvgToday'); if (sAvg) sAvg.textContent = msg;
-    const sLoud = document.getElementById('summaryLoudHour'); if (sLoud) sLoud.textContent = msg;
-    const sQuiet = document.getElementById('summaryQuietHour'); if (sQuiet) sQuiet.textContent = msg;
-    const sQuietWeek = document.getElementById('summaryQuietWeekday'); if (sQuietWeek) sQuietWeek.textContent = msg;
+    setTextById('summaryAvgToday', msg);
+    setTextById('summaryLoudHour', msg);
+    setTextById('summaryQuietHour', msg);
+    setTextById('summaryQuietWeekday', msg);
     // also stop charts visually by clearing their data
     if (typeof dayChart !== 'undefined' && dayChart && dayChart.data) {
         dayChart.data.datasets[0].data = Array(24).fill(null);

@@ -1,13 +1,6 @@
-/************************************************
-Kapitel 12: Website2DB > Schritt 2: Website -> DB
-sender.js
-Hier Werten die Formulardaten aus sender.html extrahiert, als JSON string formattiert und per HTTP POST Request an load.php geschickt.
-Später werden die HTTP Nachrichten nicht mehr von einer Website geschickt, sondern von einem ESP
-******************************************************/
-
 const form = document.getElementById("dataForm");
 
-form.addEventListener("submit", async (event) => {
+if (form) form.addEventListener("submit", async (event) => {
   event.preventDefault(); // Neuladen der Seite verhindern
 
   // Daten aus dem Formular holen
@@ -17,12 +10,12 @@ form.addEventListener("submit", async (event) => {
   };
 
   // Daten als JSON string formattieren
-  const jsonstring = JSON.stringify(dataObject);
+  const jsonString = JSON.stringify(dataObject);
 
   // debug
-  console.log("JSON Output:", jsonstring);
-  document.querySelector("#message").innerText =
-    "Daten gesendet: " + jsonstring;
+  console.log("JSON Output:", jsonString);
+  const messageEl = document.querySelector("#message");
+  if (messageEl) messageEl.innerText = "Daten gesendet: " + jsonString;
 
   // HTTP POST Request an load.php schicken
   try {
@@ -31,11 +24,11 @@ form.addEventListener("submit", async (event) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: jsonstring,
+      body: jsonString,
     });
   } catch (error) {
     console.error("Fehler beim Senden der Daten:", error);
-    document.querySelector("#message").innerText =
+    if (messageEl) messageEl.innerText =
       "Fehler beim Senden der Daten: " + error.message;
   }
 });

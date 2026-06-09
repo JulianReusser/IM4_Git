@@ -24,4 +24,4 @@ async function doLogout(e) {
   }
 }
 
-if (logoutBtn) logoutBtn.addEventListener('click', doLogout);
+if (logoutBtn) logoutBtn.addEventListener("click", doLogout);

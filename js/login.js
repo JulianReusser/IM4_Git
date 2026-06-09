@@ -2,10 +2,12 @@ function showMessage(text, type = "info") {
   const el = document.getElementById("loginMessage");
   if (!el) return;
   el.textContent = text;
-  el.className = "message " + type;
+  el.className = `message ${type}`;
 }
 
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const email = document.getElementById("email").value.trim();

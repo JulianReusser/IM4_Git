@@ -28,19 +28,20 @@ function shuffle(arr) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
+  return arr;
 }
 
 function renderTips() {
   const container = document.getElementById('tipsGrid');
   if (!container) return;
-  const copy = [...TIPS];
-  shuffle(copy);
-  const selected = copy.slice(0, 4);
+  const selected = shuffle([...TIPS]).slice(0, 4);
   container.innerHTML = '';
-  selected.forEach(t => {
+  selected.forEach((tip) => {
     const card = document.createElement('div');
     card.className = 'tip-card';
-    card.innerHTML = `<p>${t}</p>`;
+    const paragraph = document.createElement('p');
+    paragraph.textContent = tip;
+    card.appendChild(paragraph);
     container.appendChild(card);
   });
 }
@@ -48,5 +49,5 @@ function renderTips() {
 document.addEventListener('DOMContentLoaded', () => {
   renderTips();
   const btn = document.getElementById('reloadTipsBtn');
-  if (btn) btn.addEventListener('click', () => renderTips());
+  if (btn) btn.addEventListener('click', renderTips);
 });

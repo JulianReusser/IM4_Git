@@ -5,10 +5,10 @@ const messageEl = document.getElementById("registerMessage");
 function showMessage(text, type = "info") {
   if (!messageEl) return;
   messageEl.textContent = text;
-  messageEl.className = "message " + type; // allow styling via CSS
+  messageEl.className = `message ${type}`;
 }
 
-form.addEventListener("submit", async (e) => {
+if (form) form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const email = document.getElementById("email").value.trim();

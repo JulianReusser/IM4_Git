@@ -5,9 +5,9 @@ header("Content-Type: application/json");
 require_once '../system/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
-    $email = $data['email'];
-    $password = $data['password'];
+    $data = json_decode(file_get_contents("php://input"), true) ?: [];
+    $email = $data['email'] ?? '';
+    $password = $data['password'] ?? '';
 
     $stmt = $pdo->prepare("SELECT id, email, password FROM users WHERE email = :email");
     $stmt->execute([':email' => $email]);
@@ -19,11 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['email'] = $user['email'];
 
         echo json_encode(["status" => "success"]);
-        } else {
+    } else {
         echo json_encode([
             "status" => "error",
             "message" => " invalidpassword"
         ]);
-}
+    }
 }
 ?>
