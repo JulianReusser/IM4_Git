@@ -19,7 +19,6 @@ Kinder spielerisch für Rücksichtnahme zu sensibilisieren
 Betreuungspersonen bei der Raumüberwachung zu unterstützen
 Durch die zusätzliche Datenspeicherung können Lautstärkeentwicklungen langfristig analysiert und verglichen werden.
 
-\[*Bilder / GIFs (optional)*\]
 
 ### UX & Konzeption
 
