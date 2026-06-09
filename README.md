@@ -1,4 +1,4 @@
-**Modul:** Interaktive Medien 4 an der Fachhochschule Graubünden (FS26)  
+<img width="643" height="565" alt="Bildschirmfoto 2026-06-09 um 11 59 55" src="https://github.com/user-attachments/assets/9c7d3b6b-242e-4336-96aa-65004eb3720f" />**Modul:** Interaktive Medien 4 an der Fachhochschule Graubünden (FS26)  
 **Themenfeld:** IoT-Applikation zum Thema Eltern mit kleinen Kindern  
 **Name des Projekts:** Snoozy
 **Team Physical Computing:** Alessio Amstutz, Nicolas Egger   
@@ -25,16 +25,18 @@ Durch die zusätzliche Datenspeicherung können Lautstärkeentwicklungen langfri
 
 *In diesem Teil werden die gemeinsamen Schritte aus der UX-Abgabe dokumentiert, damit sich hier alles vollständig an einem Ort befindet (betrifft WebApp und Physical Computing)*
 
-* **Figma:** [Link zum Figma](http://link.zum.figma)
-* **User Flow \+ Screen Flow** (Screenshot aus Figma)  
+* **Figma:** [https://www.figma.com/design/k7f68YyhJYzzhHjEhYSf9f/IM-4-–-App-Konzeption-Bialetti?node-id=78-325&p=f&t=RwKo7n8ZB4Db5avx-0)
+* **User Flow \+ Screen Flow**
+   
 * ggf. weitere Ergänzungen
-* *Welche Features waren angedacht?* 
+* *Welche Features waren angedacht?*
+  
 
 * *Welche Features wurden nicht umgesetzt? (Warum)* Community Plattform wurde nicht umgesetzt, da diese Idee zu kompliziert und umfangreich für unser Projekt geworden wäre. 
 
 ### Setup
 
-* **WebApp:** [Link zur Website](http://link.zur.website)  
+* **WebApp:** [https://im4.julianreusser.ch)  
 * **Video-Dokumentation:** [Link zum Video auf Youtube](http://link.zum.video) 
 
 #### Installationsanleitung WebApp
