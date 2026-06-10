@@ -49,7 +49,7 @@ Community Plattform: Die Erzieher:innen sollen sich untereinander durch ein Comm
 
 ### Setup
 * **WebApp:** [https://im4.julianreusser.ch)  
-* **Video-Dokumentation:** [Link zum Video auf Youtube](http://link.zum.video) 
+* **Video-Dokumentation:** [Link zum Video auf Youtube](https://youtu.be/B_AnQz5vpS0?si=TopliaffrckhkKoL) 
 
 #### Installationsanleitung WebApp
 Schritt-für-Schritt-Anleitung, um das Projekt zu klonen und auf einem eigenen Server zu installieren*
