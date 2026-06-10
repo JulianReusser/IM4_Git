@@ -93,6 +93,7 @@ CREATE TABLE messungen (
     gemessen_am TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Dezibel INT
 );
+
 4. *Wo muss ich die DB-Credentials eintragen?*
 
 In der /system/config.php -Datei müssen die Zugangsdaten angepasst werden:
