@@ -1,3 +1,4 @@
+// Verarbeitet die Registrierung neuer Snoozy-Nutzer und meldet die Rückmeldung der API im Formular.
 // register.js
 const form = document.getElementById("registerForm");
 const messageEl = document.getElementById("registerMessage");

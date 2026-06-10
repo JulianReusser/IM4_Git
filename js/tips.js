@@ -1,3 +1,4 @@
+// Zeigt die Tipps dynamisch an und füllt den Bereich mit kurzen Hinweisen für ruhigere Situationen.
 // js/tips.js
 const TIPS = [
   'Senke sofort deine eigene Stimme, Kinder werden automatisch leiser, wenn du leiser wirst.',

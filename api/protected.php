@@ -1,4 +1,6 @@
 <?php
+/* Prüft, ob ein Nutzer eingeloggt ist, und gibt die geschützten Sitzungsdaten als JSON zurück.
+    Damit kann das Frontend entscheiden, ob private Inhalte angezeigt werden dürfen. */
 session_start();
 header('Content-Type: application/json');
 

@@ -1,4 +1,6 @@
 <?php
+/* Verwaltet den täglichen Kekszähler für das Snoozy-Projekt und legt bei Bedarf den Tageswert an.
+    Damit kann die Anwendung zählen, wie viele Kekse pro Tag noch verfügbar sind. */
 // api/cookies.php
 // Simple daily cookie counter: starts at 3 per day, decrement when loud event occurs.
 header('Content-Type: application/json');

@@ -1,5 +1,6 @@
+// Lädt die Daten für die Startseite und steuert die Anzeige zwischen Login-Bereich und geschütztem Inhalt.
 // index.js
-// Checks authentication state and toggles UI between login form and protected content
+// Prüft den Anmeldestatus und schaltet die Oberfläche entsprechend um.
 
 async function checkAuthOnIndex() {
   try {
@@ -8,14 +9,14 @@ async function checkAuthOnIndex() {
     });
 
     if (res.status === 401) {
-      // not logged in -> keep login form visible
+      // nicht eingeloggt -> Login-Formular sichtbar lassen
       document.getElementById('protectedContent').style.display = 'none';
       document.getElementById('loginForm').style.display = '';
       return;
     }
 
     const data = await res.json();
-    // show protected content
+    // geschützten Inhalt anzeigen
     document.getElementById('userEmail').textContent = data.email || '';
     document.getElementById('userId').textContent = data.user_id || '';
     document.getElementById('protectedContent').style.display = '';

@@ -1,3 +1,4 @@
+// Sendet Messdaten aus dem Formular an die API und zeigt die Antwort direkt auf der Seite an.
 const form = document.getElementById("dataForm");
 
 if (form) form.addEventListener("submit", async (event) => {

@@ -1,4 +1,6 @@
 <?php
+/* Liefert die Wochentagsstatistik für Snoozy und berechnet die Werte von Montag bis Freitag.
+    So kann die Wochenansicht die Messungen pro Tag darstellen. */
 // api/week_days.php
 // Returns average dB per weekday (Monday=0 .. Sunday=6) for the current week, focusing on Monday..Friday.
 header('Content-Type: application/json');

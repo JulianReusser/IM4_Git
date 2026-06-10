@@ -1,4 +1,6 @@
 <?php
+/* Liefert die Wochenstatistik für Snoozy und berechnet den Durchschnitt über den aktuellen Zeitraum.
+    Diese Ausgabe wird von der Statistikseite für die Wochenübersicht verwendet. */
 // api/week_stats.php
 // Returns the average dB for the current week (Mon-Sun or since Monday).
 header('Content-Type: application/json');

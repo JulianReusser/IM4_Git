@@ -1,4 +1,6 @@
 <?php
+/* Liefert die Tagesstatistik für Snoozy und berechnet Mittelwert, Minimum, Maximum und den letzten Wert.
+    Die Datei liest die Messdaten aus der Datenbank und gibt sie als JSON zurück. */
 // api/day_stats.php
 // Returns average, min, max and latest dB values for today (from `messungen`).
 header('Content-Type: application/json');

@@ -1,3 +1,4 @@
+// Lädt Nutzerdaten in den geschützten Bereich und zeigt an, ob die Session gültig ist.
 async function checkAuth() {
   try {
     const response = await fetch("/api/protected.php", {

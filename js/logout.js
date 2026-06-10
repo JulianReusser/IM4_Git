@@ -1,3 +1,4 @@
+// Meldet den Nutzer ab, beendet die Sitzung und leitet wieder zur Login-Seite zurück.
 // logout.js
 const logoutBtn = document.getElementById("logoutBtn");
 

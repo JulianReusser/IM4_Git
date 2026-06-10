@@ -1,3 +1,4 @@
+// Holt die gespeicherten Messwerte und bereitet daraus die verschiedenen Statistikansichten auf.
 async function loadStats() {
     try {
         const response = await fetch('/api/unload.php');

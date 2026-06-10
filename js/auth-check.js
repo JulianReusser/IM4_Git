@@ -1,3 +1,4 @@
+// Prüft den Login-Status und verhindert den Zugriff auf geschützte Bereiche ohne gültige Session.
 (async function () {
   try {
     const res = await fetch('api/protected.php', { credentials: 'include' });

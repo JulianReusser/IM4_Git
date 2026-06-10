@@ -1,3 +1,4 @@
+// Steuert das Login-Formular, sendet die Zugangsdaten an die API und zeigt Erfolg oder Fehler an.
 function showMessage(text, type = "info") {
   const el = document.getElementById("loginMessage");
   if (!el) return;

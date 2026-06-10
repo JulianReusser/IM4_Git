@@ -1,4 +1,6 @@
 <?php
+/* Legt neue Snoozy-Benutzerkonten an, prüft doppelte E-Mail-Adressen und gibt das Ergebnis als JSON zurück.
+    Die Datei bildet die Registrierungslogik zwischen Formular und Datenbank. */
 session_start();
 header('Content-Type: application/json');
 

@@ -1,4 +1,6 @@
 <?php
+/* Speichert einen neuen Messwert aus dem Sender- oder Sensorfluss in der Datenbank.
+    Die Datei bildet den Eingangspunkt für frisch gesendete Messdaten. */
 require_once("../system/config.php");
 
 $inputJSON = file_get_contents('php://input');

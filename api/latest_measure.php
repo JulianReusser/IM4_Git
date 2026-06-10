@@ -1,4 +1,6 @@
 <?php
+/* Gibt die zuletzt gespeicherte Messung für Snoozy zurück und dient als schneller Statusabruf.
+    So kann die Oberfläche den aktuellen Messwert ohne zusätzliche Verarbeitung anzeigen. */
 // api/latest_measure.php
 // Returns the most recent decibel measurement from the `messungen` table.
 header('Content-Type: application/json');

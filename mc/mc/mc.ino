@@ -1,3 +1,5 @@
+// Arduino-Sketch für den Snoozy-Sensor, das Mikrofon und den LED-Ring.
+// Er misst die Lautstärke, verarbeitet die Werte und steuert die Hardware-Rückmeldung.
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <Arduino_JSON.h>

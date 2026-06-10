@@ -1,4 +1,6 @@
 <?php
+/* Liefert Stundenstatistiken für Snoozy und ermittelt die lauteste Stunde des Tages.
+    Die Auswertung wird aus den gespeicherten Messwerten aufgebaut und als JSON ausgegeben. */
 // api/hour_stats.php
 // Computes average dB per hour for today and returns the loudest hour and its average.
 header('Content-Type: application/json');

@@ -1,4 +1,6 @@
 <?php
+/* Prüft die Login-Daten, legt bei Erfolg eine Session an und liefert eine JSON-Antwort zurück.
+    So wird der Anmeldeprozess zwischen Formular und Backend abgewickelt. */
 ini_set('session.cookie_httponly', 1);
 session_start();
 header("Content-Type: application/json");

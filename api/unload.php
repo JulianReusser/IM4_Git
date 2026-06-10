@@ -1,4 +1,6 @@
 <?php
+/* Liefert die gespeicherten Messdaten für den geschützten Bereich und prüft dafür die Session.
+    Die Datei dient als Datenquelle für den Abruf der Messhistorie. */
 // api/unload.php - protected endpoint to fetch measurement data
 session_start();
 header('Content-Type: application/json');

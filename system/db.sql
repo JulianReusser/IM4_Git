@@ -1,3 +1,5 @@
+-- Datenbankschema für die Snoozy-Anwendung und ihre Messdaten.
+-- Hier wird die Tabelle für Benutzerkonten angelegt, damit Login und Registrierung funktionieren.
 -- db.sql
 -- Create the database and the users table
 

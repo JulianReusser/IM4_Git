@@ -1,5 +1,6 @@
+// Baut die Navigation für die Snoozy-Seiten auf und markiert den passenden Menüpunkt.
 // nav.js
-// Highlight the correct bottom navigation link based on the current page
+// Hebt den passenden Navigationspunkt je nach aktueller Seite hervor.
 document.addEventListener('DOMContentLoaded', () => {
   const nav = document.querySelector('.bottom-nav');
   if (!nav) return;
